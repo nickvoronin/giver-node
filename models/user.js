@@ -2,9 +2,9 @@
  * Created by palzuncoff on 5/26/17.
  */
 // Загрузим mongoose т.к. нам требуется несколько классов или типов для нашей модели
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 // Создаем новую схему!
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
   // Логин
   username:{
     type:String, // тип: String

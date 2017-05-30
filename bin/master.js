@@ -3,14 +3,9 @@
  */
 
 var Logger = require('../logger');
-
-//logger
-var logger = new Logger();
-//Project/bin/master.js
-var cluster = require('cluster');
-// Загрузим нативный модуль cluster
-
-var CPUCount = require("os").cpus().length;
+const logger = new Logger();
+const cluster = require('cluster');
+const CPUCount = require("os").cpus().length;
 // Получим количество ядер процессора
 // Создание дочернего процесса требует много ресурсов. Поэтому в связке с 8 ядерным сервером и Nodemon-ом дает адские лаги при сохранении.
 // Рекомендую при активной разработке ставить CPUCount в 1 иначе вы будете страдать как я....

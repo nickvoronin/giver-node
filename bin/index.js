@@ -6,7 +6,7 @@ process.stdout.isTTY = true;
 // Заставим думать node.js что мой любимый git bash это консоль!
 // Смотрите https://github.com/nodejs/node/issues/3006
 
-var cluster = require('cluster');
+const cluster = require('cluster');
 
 
 // загрузим кластер

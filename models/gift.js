@@ -4,10 +4,10 @@
 /**
  * Created by palzuncoff on 5/22/17.
  */
-var mongoose = require('lib/mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('lib/mongoose');
+const Schema = mongoose.Schema;
 
-var schema = new Schema({
+let schema = new Schema({
   name: {
     type: String,
     maxlength:[100,"tooLong"],

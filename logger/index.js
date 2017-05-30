@@ -1,17 +1,17 @@
 /**
  * Created by palzuncoff on 5/29/17.
  */
-var stackTrace = require('stack-trace');  // Для получения имени родительского модуля
-var util = require('util'); //util.inspect()
-var path = require('path'); //path.relative() path.sep
-var projectname = require('../package').name; //package.json -> project name
+const stackTrace = require('stack-trace');  // Для получения имени родительского модуля
+const util = require('util'); //util.inspect()
+const path = require('path'); //path.relative() path.sep
+const projectname = require('../package').name; //package.json -> project name
 
 module.exports = class Logger {
   constructor() {
     function generateLogFunction(level) {
       return function(message, meta) {
         //var d = Date.now(); // Будем потом записовать время вызова
-        var mes = this.module + " -- ";
+        let mes = this.module + " -- ";
         mes += level + " -- ";
         mes += message; // прицепить сообщение
         if(meta) mes += "  " + util.inspect(meta) + " "; // Записать доп инфу (Object||Error)

@@ -1,16 +1,16 @@
 /**
  * Created by palzuncoff on 5/30/17.
  */
-var Logger = require('../logger');
-var logger = new Logger();
+const Logger = require('../logger');
+const logger = new Logger();
 
 module.exports = function(req,res,next)
 {
   // Засечь начало
-  var beginTime = Date.now();
+  let beginTime = Date.now();
   // В конце ответа
   res.on('finish',()=>{
-    var d =  Date.now();// получить дату в мс
+    let d =  Date.now();// получить дату в мс
     logger.log('Reponse time: ' + (d - beginTime),{
       url:req.url, // записать в лог куда пришел запрос (Включает urlencode string :)
       time:(d - beginTime) // сколько прошло времени

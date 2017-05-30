@@ -1,16 +1,11 @@
 /**
  * Created by palzuncoff on 5/26/17.
  */
-var Logger = require('../logger');
+const Logger = require('../logger');
+const logger = new Logger();
+const config = require('../config');
+const mongoose = require('mongoose');
 
-//logger
-var logger = new Logger();
-
-var config = require('../config');
-
-// Инициализация датабазы!
-// Загрузим mongoose
-var mongoose = require('mongoose');
 // Заменим библиотеку Обещаний (Promise) которая идет в поставку с mongoose (mpromise)
 mongoose.Promise = require('bluebird');
 // На Bluebird

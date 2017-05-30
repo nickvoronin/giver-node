@@ -2,10 +2,8 @@
  * Created by palzuncoff on 5/26/17.
  */
 
-var Logger = require('../logger');
-
-//logger
-var logger = new Logger();
+const Logger = require('../logger');
+const logger = new Logger();
 
 
 module.exports = function(err,req,res,next) {

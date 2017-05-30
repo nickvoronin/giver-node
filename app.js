@@ -1,22 +1,20 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var Logger = require('./logger');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-//logger
-var logger = new Logger();
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const Logger = require('./logger');
+const logger = new Logger();
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 //session
-var session = require('express-session'); // Сессии
-var MongoStore = require('connect-mongo')(session); // Хранилище сессий в монгодб
+const session = require('express-session'); // Сессии
+const MongoStore = require('connect-mongo')(session); // Хранилище сессий в монгодб
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
-var app = express();
+let app = express();
 
 require('./bin/dbinit');
 
@@ -54,7 +52,7 @@ app.use(require('./error/errorHandler'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
