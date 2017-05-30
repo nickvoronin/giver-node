@@ -8,11 +8,14 @@ var app = require('../app');
 var debug = require('debug')('giver-node:server');
 var http = require('http');
 
+
+var config = require('../config');
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || config.port);
 app.set('port', port);
 
 /**
@@ -65,11 +68,13 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      throw error;
+      logger.log(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      throw error;
+      logger.log(bind + ' is already in use');
       process.exit(1);
       break;
     default:

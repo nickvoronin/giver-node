@@ -1,6 +1,12 @@
 /**
  * Created by palzuncoff on 5/26/17.
  */
+var Logger = require('../logger');
+
+//logger
+var logger = new Logger();
+
+var config = require('../config');
 
 // Инициализация датабазы!
 // Загрузим mongoose
@@ -10,26 +16,20 @@ mongoose.Promise = require('bluebird');
 // На Bluebird
 // Подключимся к серверу MongoDB
 // В дальнейшем адрес сервера будет загружаться с конфигов
-mongoose.connect("mongodb://127.0.0.1/giver-express",{
-  server:{
-    poolSize: 10
-    // Поставим количество подключений в пуле
-    // 10 рекомендуемое количество для моего проекта.
-    // Вам возможно понадобится и то меньше...
-  }
-});
+mongoose.connect(config.mongoose.uri,
+  config.mongoose.options.server.poolSize);
 
 // В случае ошибки будет вызвано данная функция
 mongoose.connection.on('error',(err)=> {
-  console.error("Database Connection Error: " + err);
+  logger.error("Database Connection Error: " + err);
   // Скажите админу пусть включит MongoDB сервер :)
-  console.error('Админ сервер MongoDB Запусти!');
+  logger.error('Админ сервер MongoDB Запусти!');
   process.exit(2);
 });
 
 // Данная функция будет вызвано когда подключение будет установлено
 mongoose.connection.on('connected',()=> {
   // Подключение установлено
-  console.info("Succesfully connected to MongoDB Database");
+  logger.info("Succesfully connected to MongoDB Database");
   // В дальнейшем здесь мы будем запускать сервер.
 });
