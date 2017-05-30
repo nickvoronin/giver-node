@@ -10,7 +10,7 @@ module.exports = class Logger {
   constructor() {
     function generateLogFunction(level) {
       return function(message, meta) {
-        //var d = Date.now(); // Будем потом записовать время вызова
+        //let d = Date.now(); // Будем потом записовать время вызова
         let mes = this.module + " -- ";
         mes += level + " -- ";
         mes += message; // прицепить сообщение
