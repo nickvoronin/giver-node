@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session); // Хранилище се
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const gifts = require('./routes/gifts');
 
 let app = express();
 
@@ -46,6 +47,7 @@ app.use(session({
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/gifts', gifts);
 
 // Обработчик ошибок
 app.use(require('./error/errorHandler'));

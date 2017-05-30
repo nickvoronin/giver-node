@@ -4,7 +4,7 @@
 /**
  * Created by palzuncoff on 5/22/17.
  */
-const mongoose = require('lib/mongoose');
+const mongoose = require('../bin/dbinit');
 const Schema = mongoose.Schema;
 
 let schema = new Schema({

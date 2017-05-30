@@ -28,3 +28,5 @@ mongoose.connection.on('connected',()=> {
   logger.info("Succesfully connected to MongoDB Database");
   // В дальнейшем здесь мы будем запускать сервер.
 });
+
+module.exports = mongoose;
