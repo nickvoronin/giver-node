@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
+const Authentication = require('../controllers/authentication');
+const passportService = require('../services/passport');
+const passport = require('passport');
+
+const requireAuth = passport.authenticate('jwt', {session: false});
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', requireAuth, function(req, res) {
+  res.send({ hi: 'there' });
 });
 
 module.exports = router;

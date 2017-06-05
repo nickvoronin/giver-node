@@ -30,6 +30,7 @@ let userSchema = new mongoose.Schema({
   // Здесь будут и другие поля, но сейчас еще рано их сюда ставить!
 });
 
+// Befor the saving data run this function
 userSchema.pre('save', function (next) {
   const user = this;
 
