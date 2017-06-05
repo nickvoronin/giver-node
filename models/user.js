@@ -1,12 +1,13 @@
 /**
  * Created by palzuncoff on 5/26/17.
  */
-// Загрузим mongoose т.к. нам требуется несколько классов или типов для нашей модели
 const mongoose = require('mongoose');
-// Создаем новую схему!
+const bcrypt = require('bcrypt-nodejs');
+
+
 let userSchema = new mongoose.Schema({
   // Логин
-  username:{
+  email:{
     type:String, // тип: String
     required:[true,"usernameRequired"],
     // Данное поле обязательно. Если его нет вывести ошибку с текстом usernameRequired
@@ -14,8 +15,6 @@ let userSchema = new mongoose.Schema({
     // Максимальная длинна 32 Юникод символа (Unicode symbol != byte)
     minlength:[6,"tooShort"],
     // Слишком короткий Логин!
-    match:[/^[a-z0-9]+$/,"usernameIncorrect"],
-    // Мой любимй формат! ЗАПРЕТИТЬ НИЖНЕЕ ТИРЕ!
     unique:true // Оно должно быть уникальным
   },
   // Пароль
@@ -31,7 +30,19 @@ let userSchema = new mongoose.Schema({
   // Здесь будут и другие поля, но сейчас еще рано их сюда ставить!
 });
 
-// Теперь подключим плагины (внешние модули)
+userSchema.pre('save', function (next) {
+  const user = this;
 
-// Компилируем и Экспортируем модель
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) return next(err);
+
+      user.password = hash;
+      next();
+    })
+  })
+})
+
 module.exports = mongoose.model('User',userSchema);
