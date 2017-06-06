@@ -11,10 +11,15 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // Сессии
 const MongoStore = require('connect-mongo')(session); // Хранилище сессий в монгодб
 
+
+// insert controllerrs
 const index = require('./routes/index');
 const users = require('./routes/users');
 const gifts = require('./routes/gifts');
 const signup = require('./routes/signup');
+const signin = require('./routes/signin');
+
+
 
 let app = express();
 
@@ -46,10 +51,13 @@ app.use(session({
 }));
 
 
+
+//use controllers
 app.use('/', index);
 app.use('/users', users);
 app.use('/gifts', gifts);
-app.use('/signup', signup)
+app.use('/signup', signup);
+app.use('/signin', signin);
 // Обработчик ошибок
 app.use(require('./error/errorHandler'));
 
