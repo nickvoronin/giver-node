@@ -6,10 +6,8 @@ const logger = new Logger();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
-//session
-const session = require('express-session'); // Сессии
-const MongoStore = require('connect-mongo')(session); // Хранилище сессий в монгодб
 
 
 // insert controllerrs
@@ -18,6 +16,7 @@ const users = require('./routes/users');
 const gifts = require('./routes/gifts');
 const signup = require('./routes/signup');
 const signin = require('./routes/signin');
+const oauth = require('./routes/oauth');
 
 
 
@@ -38,18 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//session
-app.use(session({
-  secret: 'Химера Хирера',
-  // Замените на что нибудь
-  resave: false,
-  // Пересохранять даже если нету изменений
-  saveUninitialized: true,
-  // Сохранять пустые сессии
-  store: new MongoStore({ mongooseConnection: require('mongoose').connection })
-  // Использовать монго хранилище
-}));
-
+app.use(passport.initialize());
 
 
 //use controllers
@@ -58,6 +46,7 @@ app.use('/users', users);
 app.use('/gifts', gifts);
 app.use('/signup', signup);
 app.use('/signin', signin);
+app.use('/oauth', oauth);
 // Обработчик ошибок
 app.use(require('./error/errorHandler'));
 
