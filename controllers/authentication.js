@@ -16,11 +16,11 @@ const RefreshToken = require('../models/refresh_token');
 const server = oauth2orize.createServer();
 
 // Exchange username & password for access token.
-server.exchange(oauth2orize.exchange.password(function(client, email, password, scope, done) {
-  User.findOne({ email: email }, function(err, user) {
+server.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
+  User.findOne({ username: username }, function(err, user) {
     if (err) return done(err);
     if (!user) return done(null, false);
-    if (!user.comparePassword(password)) return done(null, false);
+    if (!user.checkPassword(password)) return done(null, false);
 
     RefreshToken.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
       if (err) return done(err);
@@ -29,17 +29,17 @@ server.exchange(oauth2orize.exchange.password(function(client, email, password, 
       if (err) return done(err);
     });
 
-    const tokenValue = crypto.randomBytes(32).toString('base64');
-    const refreshTokenValue = crypto.randomBytes(32).toString('base64');
-    const token = new AccessToken({ token: tokenValue, clientId: client.clientId, userId: user.userId });
-    const refreshToken = new RefreshToken({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
+    let tokenValue = crypto.randomBytes(32).toString('base64');
+    let refreshTokenValue = crypto.randomBytes(32).toString('base64');
+    let token = new AccessToken({ token: tokenValue, clientId: client.clientId, userId: user.userId });
+    let refreshToken = new RefreshToken({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
     refreshToken.save(function (err) {
       if (err) return done(err);
     });
-    const info = { scope: '*' }
+    let info = { scope: '*' }
     token.save(function (err, token) {
       if (err) { return done(err); }
-      done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
+      done(null, tokenValue, refreshTokenValue, { 'expires_in': config.security.tokenLife });
     });
   });
 }));
@@ -62,17 +62,17 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
         if (err) return done(err);
       });
 
-      const tokenValue = crypto.randomBytes(32).toString('base64');
-      const refreshTokenValue = crypto.randomBytes(32).toString('base64');
-      const token = new AccessTokenModel({ token: tokenValue, clientId: client.clientId, userId: user.userId });
-      const refreshToken = new RefreshTokenModel({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
+      let tokenValue = crypto.randomBytes(32).toString('base64');
+      let refreshTokenValue = crypto.randomBytes(32).toString('base64');
+      let token = new AccessToken({ token: tokenValue, clientId: client.clientId, userId: user.userId });
+      let refreshToken = new RefreshToken({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
       refreshToken.save(function (err) {
         if (err) { return done(err); }
       });
-      const info = { scope: '*' }
+      let info = { scope: '*' }
       token.save(function (err, token) {
         if (err) { return done(err); }
-        done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
+        done(null, tokenValue, refreshTokenValue, { 'expires_in': config.security.tokenLife });
       });
     });
   });
@@ -100,21 +100,21 @@ exports.signin = function (req, res, next) {
 }
 
 exports.signup = function (req, res, next) {
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  if (!email || !password) {
-    return res.status(422).send({error: 'Yuo mast provide email and password'});
+  if (!username || !password) {
+    return res.status(422).send({error: 'Yuo mast provide username and password'});
   }
 
-  User.findOne({email: email}, function (err, existingUser) {
+  User.findOne({username: username}, function (err, existingUser) {
     if (err) return next(err);
     if(existingUser) {
-      return res.status(422).send({error: 'Email in use'});
+      return res.status(422).send({error: 'username in use'});
     }
 
     const user = new User({
-      email: email,
+      username: username,
       password: password
     });
 

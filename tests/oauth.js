@@ -11,17 +11,17 @@ const RefreshToken = require('../models/refresh_token');
 const faker = require('Faker');
 
 User.remove({}, function(err) {
-  const user = new User({ email: "test@yahoo.com", password: "simplepassword" });
+  const user = new User({ username: "test@yahoo.com", password: "simplepassword" });
   user.save(function(err, user) {
     if(err) return logger.error(err);
-    else logger.info("New user - %s:%s",user.email, user.password);
+    else logger.info("New user - %s:%s",user.username, user.password);
   });
 
   for(i=0; i<4; i++) {
-    let user = new User({ email: faker.random.first_name().toLowerCase(), password: faker.Lorem.words(1)[0] });
+    let user = new User({ username: faker.random.first_name().toLowerCase(), password: faker.Lorem.words(1)[0] });
     user.save(function(err, user) {
       if(err) return logger.error(err);
-      else logger.info("New user - %s:%s", user.email, user.password);
+      else logger.info("New user - %s:%s", user.username, user.password);
     });
   }
 });

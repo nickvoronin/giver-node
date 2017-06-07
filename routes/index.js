@@ -10,7 +10,7 @@ const requireAuth = passport.authenticate('bearer', {session: false});
 
 /* GET home page. */
 router.get('/', requireAuth, function(req, res) {
-  res.json({ user_id: req.user.userId, name: req.user.email, scope: req.authInfo.scope });
+  res.json({ user_id: req.user.userId, name: req.user.username, scope: req.authInfo.scope });
 });
 
 module.exports = router;

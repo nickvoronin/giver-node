@@ -18,8 +18,8 @@ const RefreshToken = require('../models/refresh_token');
 
 //Bearer strategy
 const basicStrategy = new BasicStrategy(
-  function(email, password, done) {
-    Client.findOne({ clientId: email }, function(err, client) {
+  function(username, password, done) {
+    Client.findOne({ clientId: username }, function(err, client) {
       if (err) return done(err);
       if (!client) return done(null, false);
       if (client.clientSecret != password) return done(null, false);
@@ -48,7 +48,7 @@ const bearerStrategy = new BearerStrategy(
       if (err) return done(err);
       if (!token) return done(null, false);
 
-      if( Math.round((Date.now()-token.created)/1000) > config.get('security:tokenLife') ) {
+      if( Math.round((Date.now()-token.created)/1000) > config.security.tokenLife ) {
         AccessToken.remove({ token: accessToken }, function (err) {
           if (err) return done(err);
         });
@@ -70,9 +70,9 @@ const bearerStrategy = new BearerStrategy(
 
 
 
-const localOptions = {usernameField: 'email'};
-const localLogin = new LocalStrategy(localOptions, function (email, password, done) {
-  User.findOne({email: email}, function (err, user) {
+const localOptions = {usernameField: 'username'};
+const localLogin = new LocalStrategy(localOptions, function (username, password, done) {
+  User.findOne({username: username}, function (err, user) {
     if (err) return done(err);
     if (!user) return done(null, false);
 
