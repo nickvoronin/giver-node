@@ -14,8 +14,6 @@ const passport = require('passport');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const gifts = require('./routes/gifts');
-const signup = require('./routes/signup');
-const signin = require('./routes/signin');
 const oauth = require('./routes/oauth');
 
 
@@ -44,9 +42,9 @@ app.use(passport.initialize());
 app.use('/', index);
 app.use('/users', users);
 app.use('/gifts', gifts);
-app.use('/signup', signup);
-app.use('/signin', signin);
 app.use('/oauth', oauth);
+
+
 // Обработчик ошибок
 app.use(require('./error/errorHandler'));
 
