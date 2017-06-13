@@ -11,8 +11,8 @@ router.get('/', function (req, res, next) {
   Gift.find({}, function (err, gifts) {
     if (err) return next(err);
     res.json(gifts);
-  })
-})
+  });
+});
 
 router.get('/:id', function (req, res, next) {
   Gift.findById(req.params.id, function (err, gifts) {

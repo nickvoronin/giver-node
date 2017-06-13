@@ -15,6 +15,7 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const gifts = require('./routes/gifts');
 const oauth = require('./routes/oauth');
+const changePass = require('./routes/change_password');
 
 
 
@@ -43,6 +44,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/gifts', gifts);
 app.use('/oauth', oauth);
+app.use('/change-pass', changePass);
 
 
 // Обработчик ошибок
