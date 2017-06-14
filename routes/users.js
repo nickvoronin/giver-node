@@ -65,11 +65,24 @@ router.put('/:id', requireAuth, function (req, res, next) {
         // return res.status(500).send({ error: 'Server error' });
       }
 
-      logger.info("New users ",user.username);
+      logger.info("Updated user", user.username);
       res.status(200).end();
     }
   );
 });
+
+
+router.delete('/:id', requireAuth, function (req, res, next) {
+  User.findByIdAndRemove(
+    req.params.id,
+    (err) => {
+      if (err) return next(err);
+
+      logger.info("Deleted user");
+      res.status(200).end();
+    }
+  );
+})
 
 
 module.exports = router;
