@@ -9,6 +9,7 @@ const Client = require('../models/client');
 const AccessToken = require('../models/access_token');
 const RefreshToken = require('../models/refresh_token');
 const faker = require('Faker');
+const config = require('../config');
 
 User.remove({}, function(err) {
   const user = new User({ username: "test@yahoo.com", password: "simplepassword" });
@@ -27,7 +28,7 @@ User.remove({}, function(err) {
 });
 
 Client.remove({}, function(err) {
-  const client = new Client({ name: "OurService iOS client v1", clientId: "mobileV1", clientSecret:"abc123456" });
+  const client = new Client({ name: config.security.name, clientId: config.security.id, clientSecret: config.security.secret });
   client.save(function(err, client) {
     if(err) return logger.error(err);
     else logger.info("New client - %s:%s",client.clientId,client.clientSecret);

@@ -13,6 +13,8 @@
   },
   "security": {
     "tokenLife" : 3600,
-    "secret": "8vg4y((+c5j1n&garty-of6-h1g#w9q&d7w(e2iz(y13j^xvs4"
+    "secret": "8vg4y((+c5j1n&garty-of6-h1g#w9q&d7w(e2iz(y13j^xvs4",
+    "name": "giver.md",
+    "id": "5870629638435378"
   }
 }

@@ -9,8 +9,6 @@ const userSchema = new mongoose.Schema({
   username:{
     type:String,
     required:[true,"usernameRequired"],
-    maxlength:[32,"tooLong"],
-    minlength:[3,"tooShort"],
     unique:true
   },
   hashedPassword:{
@@ -24,12 +22,31 @@ const userSchema = new mongoose.Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  role: {
+    type: String
+  },
+  email: {
+    type: String,
+    minlength:[5,"tooShort"],
+  },
+  phone: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  fullName: {
+    type: String
+  },
+  organization: {
+    type: String
   }
 });
 
 userSchema.methods.encryptPassword = function(password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-  //more secure - return crypto.pbkdf2Sync(password, this.salt, 10000, 512);
+  // return crypto.pbkdf2Sync(password, this.salt, 10000, 512);
 };
 
 userSchema.virtual('userId')
