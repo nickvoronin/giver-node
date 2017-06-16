@@ -5,20 +5,37 @@ const passport = require('passport');
 const Logger = require('../logger');
 const logger = new Logger();
 const userMiddleware = require('../middleware/user');
+const httpStatus = require('http-status');
+const checkUserPermissions = require('../utils/check_user_permissions');
+// const permissonsMiddleware = require('../middleware/permissions');
+const permissions = require('../permissions');
 
 const requireAuth = passport.authenticate('bearer', {session: false});
 
 /* GET users listing. */
 router.get('/', requireAuth, function(req, res, next) {
   User.find({})
-      .then((users) => {
-        res.json(users.map((user) => {
-          const userObj = user.toObject();
-          delete userObj.hashedPassword;
-          delete userObj.salt;
-          return userObj;
-          }));
-      })
+    .then((users) => {
+
+      return checkUserPermissions(req.user, "manageUsers")
+        .then((allowed) => {
+          if (allowed) {
+            res.json(users.map((user) => {
+              const userObj = user.toObject();
+              delete userObj.hashedPassword;
+              delete userObj.salt;
+              return userObj;
+            }));
+          } else {
+            res.send(httpStatus.FORBIDDEN);
+            throw httpStatus.FORBIDDEN;
+          };
+        })
+
+        .catch((err) => {
+          throw new Error(err);
+        });
+    })
 
       .catch((err )=> {
        return next(err);
@@ -61,7 +78,7 @@ router.get('/:id', requireAuth, function (req, res, next) {
 });
 
 
-/* PUT edit user dosen't change pass*/
+/* PUT edit user, dosen't change pass*/
 router.put('/:id', requireAuth, userMiddleware.validateUserDoesNotExist, function (req, res, next) {
   User.findByIdAndUpdate(req.params.id, {username: req.body.username})
       .then((user) => {

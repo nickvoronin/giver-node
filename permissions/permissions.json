@@ -1,0 +1,34 @@
+{
+  "superUser": {
+    "manageUsers": true,
+    "createEditGift": true,
+    "deleteGift": true,
+    "viewStatistics": true,
+    "scanOrder": false,
+    "giveGift": false
+  },
+  "webMaster": {
+    "manageUsers": false,
+    "createEditGift": true,
+    "deleteGift": false,
+    "viewStatistics": false,
+    "scanOrder": false,
+    "giveGift": false
+  },
+  "partner": {
+    "manageUsers": false,
+    "createEditGift": false,
+    "deleteGift": false,
+    "viewStatistics": true,
+    "scanOrder": false,
+    "giveGift": false
+  },
+  "scaner": {
+    "manageUsers": false,
+    "createEditGift": false,
+    "deleteGift": false,
+    "viewStatistics": false,
+    "scanOrder": true,
+    "giveGift": true
+  }
+}

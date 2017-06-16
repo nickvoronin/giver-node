@@ -1,6 +1,7 @@
 /**
  * Created by palzuncoff on 6/14/17.
  */
+
 const checkIfNameExists = require('../utils/check_if_name_exists');
 const User           = require('../models/user');
 
@@ -13,4 +14,4 @@ exports.validateUserDoesNotExist = (req, res, next) => {
       res.status(403).send({success: false, message: 'An account with this name already exists.'});
     }
   });
-}
+};

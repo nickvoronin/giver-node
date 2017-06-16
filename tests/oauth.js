@@ -12,14 +12,14 @@ const faker = require('Faker');
 const config = require('../config');
 
 User.remove({}, function(err) {
-  const user = new User({ username: "test@yahoo.com", password: "simplepassword" });
+  const user = new User({ username: "admin", password: "297604200", role: "superUser" });
   user.save(function(err, user) {
     if(err) return logger.error(err);
     else logger.info("New user - %s:%s",user.username, user.password);
   });
 
   for(i=0; i<4; i++) {
-    let user = new User({ username: faker.random.first_name().toLowerCase(), password: faker.Lorem.words(1)[0] });
+    let user = new User({ username: faker.random.first_name().toLowerCase(), password: faker.Lorem.words(1)[0], role: 'webMaster' });
     user.save(function(err, user) {
       if(err) return logger.error(err);
       else logger.info("New user - %s:%s", user.username, user.password);
