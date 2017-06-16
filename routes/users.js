@@ -28,7 +28,6 @@ router.get('/', requireAuth, function(req, res, next) {
             }));
           } else {
             res.send(httpStatus.FORBIDDEN);
-            throw httpStatus.FORBIDDEN;
           };
         })
 
@@ -47,7 +46,8 @@ router.get('/', requireAuth, function(req, res, next) {
 router.post('/', requireAuth, userMiddleware.validateUserDoesNotExist, function (req, res, next) {
   const user = new User({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role
   });
   user.save((err, user) => {
     if (err) return next(err);
