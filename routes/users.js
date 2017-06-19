@@ -116,14 +116,15 @@ router.put('/:id', requireAuth, function (req, res, next) {
   return checkUserPermissions(req.user, "manageUsers")
     .then((alowed) => {
       if (alowed) {
-        User.findByIdAndUpdate(req.params.id, {
-          username: req.body.username,
-          role: req.body.role,
-          email: req.body.email,
-          phone: req.body.phone,
-          fullName: req.body.fullName,
-          organization: req.body.organization
-        })
+        let fieldsObj = {};
+        if (req.body.username) fieldsObj.username = req.body.username;
+        if (req.body.role) fieldsObj.role = req.body.role;
+        if (req.body.email) fieldsObj.email = req.body.email;
+        if (req.body.phone) fieldsObj.phone = req.body.phone;
+        if (req.body.fullName) fieldsObj.fullName = req.body.fullName;
+        if (req.body.organization) fieldsObj.organization = req.body.organization;
+
+        User.findByIdAndUpdate(req.params.id, fieldsObj)
           .then((user) => {
             if (!user) return res.send(httpStatus.NOT_FOUND);
             logger.info("Updated user", user.username);
