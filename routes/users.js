@@ -131,7 +131,8 @@ router.put('/:id', requireAuth, function (req, res, next) {
           })
 
           .catch((err) => {
-            if (err.name === 'MongoError' && err.code === 11000) {
+            logger.error(err.code);
+            if (err.name === 'MongoError' && err.code === 11001) {
               // Duplicate username
               return res.status(500).send({ succes: false, message: 'User already exist!' });
             }
