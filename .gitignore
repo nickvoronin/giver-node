@@ -1,4 +1,4 @@
 database/
 node_modules/
-config/config.json
+config/*
 .idea/
