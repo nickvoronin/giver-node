@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const Partner = require('./partner');
 
 
 const userSchema = new mongoose.Schema({
@@ -40,7 +41,8 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   organization: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Partner'
   }
 });
 

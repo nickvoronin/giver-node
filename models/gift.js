@@ -6,13 +6,49 @@
  */
 const mongoose = require('../bin/dbinit');
 const Schema = mongoose.Schema;
+const Img = require('./img');
+const Category = require('./category');
+const Partner = require('./partner');
 
 let schema = new Schema({
-  name: {
+  nameEn: {
     type: String,
     maxlength:[100,"tooLong"],
-    minlength:[2,"tooShort"],
-    required:[true,"giftNameRequired"]
+    minlength:[2,"tooShort"]
+  },
+  nameRo: {
+    type: String,
+    maxlength:[100,"tooLong"],
+    minlength:[2,"tooShort"]
+  },
+  nameRu: {
+    type: String,
+    maxlength:[100,"tooLong"],
+    minlength:[2,"tooShort"]
+  },
+  descriptionEn: {
+    type: String,
+    minlength:[2,"tooShort"]
+  },
+  descriptionRo: {
+    type: String,
+    minlength:[2,"tooShort"]
+  },
+  descriptionRu: {
+    type: String,
+    minlength:[2,"tooShort"]
+  },
+  shortDescriptionEn: {
+    type: String,
+    minlength:[2,"tooShort"]
+  },
+  shortDescriptionRo: {
+    type: String,
+    minlength:[2,"tooShort"]
+  },
+  shortDescriptionRu: {
+    type: String,
+    minlength:[2,"tooShort"]
   },
   price: {
     type: Number,
@@ -43,7 +79,19 @@ let schema = new Schema({
   preview: {
     data: Buffer,
     contentType: String
-  }
+  },
+  galery: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Img'
+  }],
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
+  partners: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Partner'
+  }]
 });
 
 module.exports = mongoose.model('Gift', schema);
