@@ -1,6 +1,10 @@
 {
   "port": 5000,
+<<<<<<< Updated upstream
   "hostanme": "localhost",
+=======
+  "hostname": "ec2-52-57-245-243.eu-central-1.compute.amazonaws.com",
+>>>>>>> Stashed changes
   "mongoose":{
     "uri": "mongodb://127.0.0.1/giver-express",
     "options": {

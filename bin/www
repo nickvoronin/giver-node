@@ -22,7 +22,11 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+<<<<<<< Updated upstream
 
+
+
+>>>>>>> Stashed changes
 const server = http.createServer(app);
 
 /**

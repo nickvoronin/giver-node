@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.encryptPassword = function(password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-  // return crypto.pbkdf2Sync(password, this.salt, 10000, 512);
+//   return crypto.pbkdf2Sync(password, this.salt, 10000, 512);
 };
 
 userSchema.virtual('userId')
