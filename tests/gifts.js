@@ -40,7 +40,7 @@ partnerList.forEach((item) => {
   });
 });
 
-Gift.remove({}, function(err) {
+const createGifts = Gift.remove({}, function(err) {
   const first = new Gift({
     nameEn: "Pizza peperoni",
     nameRo: "Pizza peperoni",
@@ -103,6 +103,10 @@ Gift.remove({}, function(err) {
   });
 });
 
+createGifts;
+
 setTimeout(function() {
   mongoose.disconnect();
 }, 3000);
+
+module.exports = createGifts;

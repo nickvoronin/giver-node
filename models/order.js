@@ -10,17 +10,13 @@ const Member = require('./member');
 const Address = require('./address');
 
 const schema = new Schema({
-    _id: {
-      type: String,
-      default: uuid()
-    },
     sender: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Member',
       required: true
     },
     receiver: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Member',
       required: true
     },
@@ -58,7 +54,8 @@ const schema = new Schema({
     },
     gift: {
       type: Schema.Types.ObjectId,
-      ref: 'Gift'
+      ref: 'Gift',
+      required: true
     },
 
   },

@@ -1,8 +1,20 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+article {
+  position: absolute;
+  top: 150px;
+  left: 10%;
+  margin-left: 0px;
+}
+.logo {
+  width: 400px;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  color: #333;
+  fill: #333;
+  font: 300 40px 'Lato',sans-serif;
+  text-align: center;
+}
+
+span {
+  color: #ce0000;
 }

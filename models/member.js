@@ -8,7 +8,7 @@ const Gift = require('./gift');
 
 const schema = new Schema({
   _id: {
-    type: Number,
+    type: String,
     required: true,
     unique: true
   },

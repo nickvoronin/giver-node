@@ -7,10 +7,8 @@
 const app = require('../app');
 const debug = require('debug')('giver-node:server');
 const http = require('http');
-const https = require('https');
 const fs = require('fs');
 const config = require('../config');
-const hostname = require('../middleware/hostname');
 
 
 /**
@@ -19,20 +17,13 @@ const hostname = require('../middleware/hostname');
 
 let port = normalizePort(process.env.PORT || config.port);
 app.set('port', port);
-app.set('hostname', hostname);
 
 /**
- * Create HTTPS server.
+ * Create HTTP server.
  */
 
-const options = {
-  key: fs.readFileSync('/home/palzuncoff/WebstormProjects/giver-node/.ssl/key.pem'),
-  cert: fs.readFileSync('/home/palzuncoff/WebstormProjects/giver-node/public/.well-known/acme-challenge/cert.pem'),
-  requestCert: true
 
-};
-
-const server = https.createServer(options, app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -40,7 +31,7 @@ const server = https.createServer(options, app);
 
 
 
-server.listen(port, hostname);
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 

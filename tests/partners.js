@@ -26,7 +26,7 @@ streets.forEach((item) => {
 
 logger.info(adresses);
 
-Partner.remove({}, function(err) {
+const createPartners = Partner.remove({}, function(err) {
   const first = new Partner({
     name: "Andys Pizza",
     description: "Pizza restaurant",
@@ -62,6 +62,11 @@ Partner.remove({}, function(err) {
   });
 });
 
+createPartners;
+
+
 setTimeout(function() {
   mongoose.disconnect();
 }, 3000);
+
+module.exports = createPartners;

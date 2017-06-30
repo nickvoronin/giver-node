@@ -8,7 +8,7 @@ const faker = require('Faker');
 const config = require('../config');
 const Category = require('../models/category');
 
-Category.remove({}, function(err) {
+const createCategories = Category.remove({}, function(err) {
   const food = new Category({ nameEn: "Food", nameRo: "mincare", nameRu: "Еда" });
   const drinks = new Category({ nameEn: "Drinks", nameRo: "bauturi", nameRu: "Напитки"  });
   const clothes = new Category({ nameEn: "Clothes", nameRo: "Haine", nameRu: "Одежда" });
@@ -28,6 +28,10 @@ Category.remove({}, function(err) {
   });
 });
 
+createCategories;
+
 setTimeout(function() {
   mongoose.disconnect();
 }, 3000);
+
+module.exports = createCategories;

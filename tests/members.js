@@ -10,21 +10,29 @@ const Partner = require('../models/partner');
 const Address = require('../models/address');
 const Member = require('../models/member');
 
+let address;
+Address.findOne({street: "Mircea cel Batrin"}, (err, item) => {
+  address = item;
 
-Member.remove({}, function(err) {
+});
+
+const createMembers = Member.remove({}, function(err) {
   const first = new Member({
-    _id: 5768493048675643,
+    _id: '5768493048675643',
     language: "ru",
+    address: address
   });
 
   const second = new Member({
-    _id: 86849406758430986,
+    _id: '86849406758430986',
     language: "ru",
+    address: address
   });
 
   const third = new Member({
-    _id: 486957364860383557,
+    _id: '486957364860383557',
     language: "ru",
+    address: address
   });
 
 
@@ -44,6 +52,10 @@ Member.remove({}, function(err) {
   });
 });
 
+createMembers
+
 setTimeout(function() {
   mongoose.disconnect();
 }, 3000);
+
+module.exports = createMembers;

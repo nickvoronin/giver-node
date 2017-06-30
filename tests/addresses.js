@@ -8,7 +8,7 @@ const faker = require('Faker');
 const config = require('../config');
 const Adsress = require('../models/address');
 
-Adsress.remove({}, function(err) {
+const createAdresses = Adsress.remove({}, function(err) {
   const first = new Adsress({
     country: "Moldova",
     provance: "Chisinau",
@@ -65,6 +65,12 @@ Adsress.remove({}, function(err) {
   });
 });
 
+
+createAdresses;
+
+
 setTimeout(function() {
   mongoose.disconnect();
 }, 3000);
+
+module.exports = createAdresses;
