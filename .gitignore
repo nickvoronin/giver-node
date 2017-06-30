@@ -2,3 +2,8 @@ database/
 node_modules/
 config/*
 .idea/
+bin/www
+config/config.json
+routes/index.js
+
+
